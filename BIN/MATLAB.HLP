@@ -1,0 +1,769 @@
+Appendix.  The HELP document
+
+NEWS  MATLAB NEWS dated 3/21/82.
+
+Normalization of some eigenvectors associated with multiple
+eigenvalues altered to reduce overflow.
+
+The new features added since the November,  1980,  printing
+of the Users' Guide include DIARY, EDIT, KRON, MACRO, PLOT,
+RAT, TRIL, TRIU and six element-by-element operations:  .*   ./   .\   .*.
+./.   .\.
+
+Some additional  capabilities  have  been  added  to  EXIT,
+RANDOM, RCOND, SIZE and SVD.
+
+INTRO Welcome to MATLAB.
+
+Here are a few sample statements:
+
+A = <1 2; 3 4>
+b = <5 6>'
+x = A\b
+<V,D> = eig(A),  norm(A-V*D/V)
+help \ , help eig
+exec('demo',7)
+
+For more information, see the MATLAB Users' Guide which  is
+contained in file ...  or may be obtained from ... .
+
+HELP  HELP gives assistance.
+HELP  HELP obviously prints this message.
+To see all the HELP messages, list the file ... .
+
+<     < > Brackets used in forming vectors and matrices.
+ <6.9  9.64  SQRT(-1)>  is  a  vector  with  three  elements
+ separated  by  blanks.   <6.9,  9.64, sqrt(-1)> is the same
+ thing.  <1+I 2-I 3>  and  <1 +I 2 -I 3>  are not the  same.
+ The first has three elements, the second has five.
+ <11 12 13; 21 22 23>  is a 2 by 3 matrix .   The  semicolon
+ ends the first row.
+
+ Vectors and matrices can be used inside < > brackets.
+ <A B; C>  is allowed if the number of rows  of   A   equals
+ the  number  of rows of  B  and the number of columns of  A
+ plus the number of columns of   B   equals  the  number  of
+ columns  of   C  .   This  rule  generalizes in a hopefully
+ obvious way to allow fairly complicated constructions.
+
+ A = < >  stores an empty matrix in  A , thereby removing it
+ from the list of current variables.
+
+ For the use of < and > on the left of  the  =  in  multiple
+ assignment statements, see LU, EIG, SVD and so on.
+
+ In WHILE and IF clauses, <>  means  less  than  or  greater
+ than,  i.e.  not  equal, < means less than, > means greater
+ than, <= means less than or equal, >= means greater than or
+ equal.
+
+ For the use of > and < to delineate macros, see MACRO.
+
+>     See < .  Also see MACRO.
+
+(     ( ) Used to indicate precedence in  arithmetic  expressions
+ in  the  usual way.  Used to enclose arguments of functions
+ in the usual way.  Used to enclose  subscripts  of  vectors
+ and  matrices  in  a  manner somewhat more general than the
+ usual way.  If  X   and   V  are  vectors,  then   X(V)  is
+ <X(V(1)),  X(V(2)),  ...,  X(V(N))> .  The components of  V
+ are rounded to nearest integers and used as subscripts.  An
+ error  occurs  if  any  such  subscript  is  less than 1 or
+ greater than the dimension of  X .  Some examples:
+ X(3)  is the third element of  X .
+ X(<1 2 3>)  is the first three elements of  X .  So is
+ X(<SQRT(2), SQRT(3), 4*ATAN(1)>)  .
+ If  X  has  N  components,  X(N:-1:1) reverses them.
+ The same indirect subscripting is used in matrices.  If   V
+ has   M  components and  W  has  N  components, then A(V,W)
+ is the  M by N  matrix formed from the elements of A  whose
+ subscripts are the elements of  V  and  W .  For example...
+ A(<1,5>,:) = A(<5,1>,:)  interchanges rows 1 and 5 of  A .
+
+)     See  ( .
+
+=     Used in assignment statements and to mean equality in WHILE
+ and IF clauses.
+
+.     Decimal point.  314/100, 3.14  and   .314E1   are  all  the
+ same.
+
+ Element-by-element multiplicative operations  are  obtained
+ using  .*  ,  ./  , or .\ .  For example, C = A ./ B is the
+ matrix with elements  c(i,j) = a(i,j)/b(i,j) .
+
+ Kronecker tensor products and quotients are  obtained  with
+ .*. , ./.  and .\. .  See KRON.
+
+ Two or  more  points  at  the  end  of  the  line  indicate
+ continuation.    The   total  line  length  limit  is  1024
+ characters.
+
+,     Used to separate matrix subscripts and function  arguments.
+ Used  at  the  end  of  FOR, WHILE and IF clauses.  Used to
+ separate statements  in  multi-statement  lines.   In  this
+ situation,  it  may  be  replaced  by semicolon to suppress
+ printing.
+
+;     Used inside brackets to end rows.
+ Used after an expression or statement to suppress printing.
+ See SEMI.
+
+\     Backslash or matrix left division.   A\B   is  roughly  the
+ same  as   INV(A)*B  , except it is computed in a different
+ way.  If  A  is an N by N matrix and  B  is a column vector
+ with  N  components, or a matrix with several such columns,
+ then X = A\B  is the solution to  the  equation   A*X  =  B
+ computed  by  Gaussian  elimination.   A warning message is
+ printed if  A is badly scaled or nearly singular.
+ A\EYE produces the inverse of  A .
+
+ If  A  is an  M by N  matrix with  M < or > N  and  B  is a
+ column vector with  M  components, or a matrix with several
+ such columns, then  X = A\B  is the solution in  the  least
+ squares  sense  to  the under- or overdetermined system  of
+ equations A*X = B .  The  effective  rank,  K,  of   A   is
+ determined  from  the  QR  decomposition  with pivoting.  A
+ solution  X  is  computed  which  has  at  most  K  nonzero
+ components  per column.  If  K < N this will usually not be
+ the same solution as PINV(A)*B .
+ A\EYE produces a generalized inverse of  A .
+
+ If A and B have the  same  dimensions,  then  A  .\  B  has
+ elements a(i,j)\b(i,j) .
+
+ Also, see EDIT.
+
+/     Slash or matrix right division.  B/A  is roughly  the  same
+ as  B*INV(A) .  More precisely,  B/A = (A'\B')' .  See \ .
+
+ IF A and B have the  same  dimensions,  then  A  ./  B  has
+ elements a(i,j)/b(i,j) .
+
+ Two or more slashes together on a line indicate  a  logical
+ end of line.  Any following text is ignored.
+
+'     Transpose.  X'  is the complex conjugate transpose of  X  .
+ Quote.   'ANY  TEXT'   is a vector whose components are the
+ MATLAB internal codes for the characters.  A  quote  within
+ the text is indicated by two quotes.  See DISP and FILE .
+
++     Addition.  X + Y .  X and Y must have the same dimensions.
+
+-     Subtraction.  X  -  Y  .   X  and  Y  must  have  the  same
+ dimensions.
+
+*     Matrix multiplication, X*Y .  Any scalar (1  by  1  matrix)
+ may multiply anything.  Otherwise, the number of columns of
+ X must equal the number of rows of Y .
+
+ Element-by-element multiplication is obtained with X .* Y .
+
+ The Kronecker tensor product is denoted by X .*. Y .
+
+ Powers.  X**p  is  X  to the   p   power.   p   must  be  a
+ scalar.  If  X  is a matrix, see  FUN .
+
+:     Colon.  Used in subscripts,  FOR  iterations  and  possibly
+ elsewhere.
+ J:K  is the same as  <J, J+1, ..., K>
+ J:K  is empty if  J > K .
+ J:I:K  is the same as  <J, J+I, J+2I, ..., K>
+ J:I:K  is empty if  I > 0 and J > K or if I < 0 and J < K .
+ The colon notation can be used to pick out  selected  rows,
+ columns and elements of vectors and matrices.
+ A(:)  is all the  elements  of  A,  regarded  as  a  single
+ column.
+ A(:,J)  is the  J-th  column of A
+ A(J:K)  is  A(J),A(J+1),...,A(K)
+ A(:,J:K)  is  A(:,J),A(:,J+1),...,A(:,K) and so on.
+ For the use of the colon in the FOR statement, See FOR .
+
+ABS   ABS(X)  is the absolute value, or complex modulus,  of  the
+ elements of X .
+
+ANS   Variable created automatically  when  expressions  are  not
+ assigned to anything else.
+
+ATAN  ATAN(X)  is the arctangent of  X .  See FUN .
+
+BASE  BASE(X,B) is a vector containing the base B  representation
+ of   X  .   This is often used in conjunction with DISPLAY.
+ DISPLAY(X,B)  is  the  same  as  DISPLAY(BASE(X,B)).    For
+ example,    DISP(4*ATAN(1),16)   prints   the   hexadecimal
+ representation of pi.
+
+CHAR  CHAR(K)  requests  an  input  line  containing   a   single
+ character  to  replace  MATLAB  character  number  K in the
+ following table.  For example, CHAR(45) replaces backslash.
+ CHAR(-K) replaces the alternate character number K.
+
+ K  character alternate name
+    0 - 9   0 - 9    0 - 9   digits
+   10 - 35  A - Z    a - z   letters
+     36  blank
+     37  (   (     lparen
+     38  )   )     rparen
+     39  ;   ;     semi
+     40  :   |     colon
+     41  +   +     plus
+     42  -   -     minus
+     43  *   *     star
+     44  /   /     slash
+     45  \   $     backslash
+     46  =   =     equal
+     47  .   .     dot
+     48  ,   ,     comma
+     49  '   "     quote
+     50  <   [     less
+     51  >   ]     great
+
+CHOL  Cholesky factorization.  CHOL(X)  uses  only  the  diagonal
+ and upper triangle of  X .  The lower triangular is assumed
+ to be the (complex conjugate) transpose of the  upper.   If
+ X   is  positive  definite,  then  R = CHOL(X)  produces an
+ upper triangular  R  so that  R'*R = X .   If   X   is  not
+ positive definite, an error message is printed.
+
+CHOP  Truncate arithmetic.  CHOP(P) causes P places to be chopped
+ off   after   each   arithmetic   operation  in  subsequent
+ computations.  This means  P  hexadecimal  digits  on  some
+ computers  and  P octal digits on others.  CHOP(0) restores
+ full precision.
+
+CLEAR Erases all variables, except EPS, FLOP, EYE and RAND.
+ X = <>  erases only variable  X .  So does CLEAR X .
+
+COND  Condition number in 2-norm.  COND(X) is the  ratio  of  the
+ largest singular value of  X  to the smallest.
+
+CONJG CONJG(X)  is the complex conjugate of  X .
+
+COS   COS(X)  is the cosine of  X .  See FUN .
+
+DET   DET(X)  is the determinant of the square matrix  X .
+
+DIAG  If  V  is  a  row  or  column  vector  with  N  components,
+ DIAG(V,K)   is a square matrix of order  N+ABS(K)  with the
+ elements of  V  on the K-th diagonal.  K = 0  is  the  main
+ diagonal,  K  >  0  is above the main diagonal and K < 0 is
+ below the main diagonal.  DIAG(V)  simply puts  V   on  the
+ main diagonal.
+ eg. DIAG(-M:M) + DIAG(ONES(2*M,1),1) + DIAG(ONES(2*M,1),-1)
+ produces a tridiagonal matrix of order 2*M+1 .
+ IF  X  is a matrix,  DIAG(X,K)  is a column  vector  formed
+ from the elements of the K-th diagonal of  X .
+ DIAG(X)  is the main diagonal of  X .
+ DIAG(DIAG(X))  is a diagonal matrix .
+
+DIARY DIARY('file') causes a  copy  of  all  subsequent  terminal
+ input and most of the resulting output to be written on the
+ file. DIARY(0) turns it off.  See FILE.
+
+DISP  DISPLAY(X) prints X  in  a  compact  format.   If  all  the
+ elements  of  X  are  integers  between 0 and 51, then X is
+ interpreted  as  MATLAB  text  and   printed   accordingly.
+ Otherwise,  +  ,  -   and  blank  are printed for positive,
+ negative and zero elements.  Imaginary parts are ignored.
+ DISP(X,B) is the same as DISP(BASE(X,B)).
+
+EDIT  There  are  no   editing   features   available   on   most
+ installations and EDIT is not a command.  However, on a few
+ systems a command line consisting of a single  backslash  \
+ will  cause  the local file editor to be called with a copy
+ of the  previous  input  line.   When  the  editor  returns
+ control to MATLAB, it will execute the line again.
+
+EIG   Eigenvalues and eigenvectors.
+ EIG(X) is a vector containing the eigenvalues of  a  square
+ matrix  X .
+ <V,D>  =  EIG(X)   produces  a  diagonal  matrix    D    of
+ eigenvalues  and  a  full  matrix  V  whose columns are the
+ corresponding eigenvectors so that  X*V = V*D .
+
+ELSE  Used with IF .
+
+END   Terminates the scope  of  FOR,  WHILE  and  IF  statements.
+ Without  END's,  FOR  and WHILE repeat all statements up to
+ the end of the line.  Each END is paired with  the  closest
+ previous  unpaired FOR or WHILE and serves to terminate its
+ scope.  The line
+ FOR I=1:N, FOR J=1:N, A(I,J)=1/(I+J-1); A
+ would cause A to be printed  N**2  times, once for each new
+ element.  On the other hand, the line
+ FOR I=1:N, FOR J=1:N, A(I,J)=1/(I+J-1); END, END, A
+ will lead to only the final printing of  A .
+ Similar considerations apply to WHILE.
+ EXIT terminates execution of loops or of MATLAB itself.
+
+EPS   Floating point relative  accuracy.   A  permanent  variable
+ whose  value is initially the distance from 1.0 to the next
+ largest floating point number.  The  value  is  changed  by
+ CHOP,  and  other values may be assigned.  EPS is used as a
+ default tolerance by PINV and RANK.
+
+EXEC  EXEC('file',k) obtains  subsequent  MATLAB  input  from  an
+ external  file.  The printing of input is controlled by the
+ optional parameter k .
+ If k = 1 , the input is echoed.
+ If k = 2 , the MATLAB prompt <> is printed.
+ If k = 4 , MATLAB pauses before each prompt and waits for a
+ null line to continue.
+ If k = 0 , there is no echo, prompt or pause.  This is  the
+ default if the exec command is followed by a semicolon.
+ If k = 7 , there will be echos, prompts and pauses. This is
+ useful for demonstrations on video terminals.
+ If k = 3 , there will be echos and prompts, but no  pauses.
+ This is the the default if the exec command is not followed
+ by a semicolon.
+ EXEC(0) causes subsequent input to  be  obtained  from  the
+ terminal. An end-of-file has the same effect.
+ EXEC's may be nested, i.e. the text in the file may contain
+ EXEC of another file.  EXEC's may also be driven by FOR and
+ WHILE loops.
+
+EXIT  Causes termination of a FOR or WHILE loop.
+ If not in a loop, terminates execution of MATLAB.
+
+EXP   EXP(X)  is the exponential of  X ,  e  to the X .  See  FUN
+ .
+
+EYE   Identity matrix.  EYE(N) is the N  by  N  identity  matrix.
+ EYE(M,N)   is an M by N matrix with 1's on the diagonal and
+ zeros elsewhere.  EYE(A)  is the same size  as   A  .   EYE
+ with  no  arguments is an identity matrix of whatever order
+ is appropriate in the context.   For  example,  A  +  3*EYE
+ adds  3  to each diagonal element of  A .
+
+FILE  The EXEC, SAVE, LOAD,  PRINT  and  DIARY  functions  access
+ files.   The  'file'  parameter  takes  different forms for
+ different operating systems.  On most systems,  'file'  may
+ be a string of up to 32 characters in quotes.  For example,
+ SAVE('A') or EXEC('matlab/demo.exec') .  The string will be
+ used as the name of a file in the local operating system.
+ On all systems, 'file' may be a positive integer   k   less
+ than  10  which  will  be  used  as  a FORTRAN logical unit
+ number. Some systems then automatically access a file  with
+ a  name  like  FORT.k  or FORk.DAT. Other systems require a
+ file with a name like FT0kF001 to be assigned  to  unit   k
+ before  MATLAB  is  executed. Check your local installation
+ for details.
+
+FLOPS Count of floating point operations.
+ FLOPS  is  a  permanently  defined  row  vector  with   two
+ elements.    FLOPS(1)  is  the  number  of  floating  point
+ operations counted during the previous statement.  FLOPS(2)
+ is  a  cumulative total.  FLOPS can be used in the same way
+ as any other vector.  FLOPS(2) = 0  resets  the  cumulative
+ total.   In  addition,  FLOPS(1) will be printed whenever a
+ statement is terminated by an extra comma.  For example,
+ X = INV(A);,
+ or
+ COND(A),   (as the last statement on the line).
+ HELP FLPS gives more details.
+
+FLPS  More detail on FLOPS.
+ It is not feasible to count absolutely all  floating  point
+ operations,  but  most  of  the important ones are counted.
+ Each multiply and add in a real vector operation such as  a
+ dot  product  or  a 'saxpy' counts one flop.  Each multiply
+ and add in a complex vector  operation  counts  two  flops.
+ Other additions, subtractions and multiplications count one
+ flop each if the result is real and two flops if it is not.
+ Real  divisions  count one and complex divisions count two.
+ Elementary functions count one if real and two if  complex.
+ Some examples.  If A and B are real N by N matrices, then
+ A + B  counts N**2 flops,
+ A*B    counts N**3 flops,
+ A**100 counts 99*N**3 flops,
+ LU(A)  counts roughly (1/3)*N**3 flops.
+
+FOR   Repeat statements a specific number of times.
+ FOR variable = expr, statement, ..., statement, END
+ The END at the end of a line may  be  omitted.   The  comma
+ before  the  END  may  also be omitted.  The columns of the
+ expression are stored one at a time  in  the  variable  and
+ then the following statements, up to the END, are executed.
+ The expression is often of the form X:Y, in which case  its
+ columns  are  simply  scalars.  Some examples (assume N has
+ already been assigned a value).
+ FOR I = 1:N, FOR J = 1:N, A(I,J) = 1/(I+J-1);
+ FOR J = 2:N-1, A(J,J) = J; END; A
+ FOR S = 1.0: -0.1: 0.0, ...  steps S with increments of -0.1 .
+ FOR E = EYE(N), ...   sets  E  to the unit N-vectors.
+ FOR V = A, ...   has the same effect as
+ FOR J = 1:N, V = A(:,J); ...  except J is also set here.
+
+FUN   For matrix arguments  X , the  functions  SIN,  COS,  ATAN,
+ SQRT,  LOG,  EXP and X**p are computed using eigenvalues  D
+ and eigenvectors  V .  If  <V,D> =  EIG(X)   then   f(X)  =
+ V*f(D)/V  .   This method may give inaccurate results if  V
+ is badly conditioned.  Some idea of  the  accuracy  can  be
+ obtained by comparing  X**1  with  X .
+ For vector arguments,  the  function  is  applied  to  each
+ component.
+
+HESS  Hessenberg form.  The Hessenberg form of a matrix  is  zero
+ below the first subdiagonal.  If the matrix is symmetric or
+ Hermitian,  the  form  is  tridiagonal.   <P,H>  =  HESS(A)
+ produces  a  unitary  matrix P and a Hessenberg matrix H so
+ that A = P*H*P'.  By itself, HESS(A) returns H.
+
+HILB  Inverse Hilbert matrix.  HILB(N)  is the inverse of  the  N
+ by N  matrix with elements 1/(i+j-1), which is a famous
+ example of a badly conditioned matrix. The result is exact
+ for N less than about 15, depending upon the computer.
+
+IF   Conditionally execute statements.  Simple form...
+ IF expression rop expression, statements
+ where rop is =, <, >, <=, >=, or <> (not equal).  The
+ statements are executed once if the indicated comparison
+ between the real parts of the first components of the two
+ expressions is true, otherwise the statements are skipped.
+ Example.
+ IF ABS(I-J) = 1, A(I,J) = -1;
+ More complicated forms use END in the same way it is used
+ with FOR and WHILE and use ELSE as an abbreviation for END,
+ IF expression not rop expression.  Example
+ FOR I = 1:N, FOR J = 1:N, ...
+    IF I = J, A(I,J) = 2; ELSE IF ABS(I-J) = 1, A(I,J) = -1; ...
+    ELSE A(I,J) = 0;
+ An easier way to accomplish the same thing is
+ A = 2*EYE(N);
+ FOR I = 1:N-1, A(I,I+1) = -1; A(I+1,I) = -1;
+
+IMAG  IMAG(X) is the imaginary part of X.
+
+INV   INV(X) is the inverse of the square matrix X. A warning
+ message is printed if  X  is badly scaled or nearly
+ singular.
+
+KRON  KRON(X,Y) is the Kronecker tensor product of X and Y.  It
+ is also denoted by X .*. Y. The result is a large matrix
+ formed by taking all possible products between the elements
+ of X and those of Y. For example, if X is 2 by 3, then
+ X .*. Y is
+
+  < x(1,1)*Y  x(1,2)*Y  x(1,3)*Y
+    x(2,1)*Y  x(2,2)*Y  x(2,3)*Y >
+
+ The five-point discrete Laplacian for an n-by-n grid can be
+ generated by
+
+  T = diag(ones(n-1,1),1);  T = T + T';  I = EYE(T);
+  A = T.*.I + I.*.T - 4*EYE;
+
+ Just in case they might be useful, MATLAB  includes
+ constructions called Kronecker tensor quotients, denoted by
+ X ./. Y and X .\. Y.  They are obtained by replacing the
+ elementwise multiplications in X .*. Y with divisions.
+
+LINES An internal count is kept of the number of lines of output
+ since the last input.  Whenever this count approaches a
+ limit, the user is asked whether or not to suppress
+ printing until the next input.  Initially the limit is 25.
+ LINES(N) resets the limit to N.
+
+LOAD  LOAD('file') retrieves all the variables from the file.
+ See FILE and SAVE for more details. To prepare your own
+ file for LOADing, change the READs to WRITEs in the code
+ given under SAVE.
+
+LOG   LOG(X) is the natural logarithm of  X.  See FUN.
+ Complex results are produced if X is not positive, or has
+ nonpositive eigenvalues.
+
+LONG  Determine output format.  All computations are done in
+ complex arithmetic and double precision if it is available.
+ SHORT and LONG merely switch between different output
+ formats.
+ SHORT    Scaled fixed point format with about 5 digits.
+ LONG     Scaled fixed point format with about 15 digits.
+ SHORT E  Floating point format with about 5 digits.
+ LONG E   Floating point format with about 15 digits.
+ LONG Z   System dependent format, often hexadecimal.
+
+LU    Factors from Gaussian elimination.  <L,U> = LU(X) stores a
+ upper triangular matrix in U and a 'psychologically lower
+ triangular matrix', i.e. a product of lower triangular and
+ permutation matrices, in L , so that X = L*U. By itself,
+ LU(X) returns the output from CGEFA.
+
+MACRO The macro facility involves text and inward pointing angle
+ brackets.  If STRING is the source text for any MATLAB
+ expression or statement, then
+  t = 'STRING';
+ encodes the text as a vector of integers and stores that
+ vector in t.  DISP(t) will print the text and
+  >t<
+ causes the text to be interpreted, either as a statement or
+ as a factor in an expression.  For example
+  t = '1/(i+j-1)';
+  disp(t)
+  for i = 1:n, for j = 1:n, a(i,j) = >t<;
+ generates the Hilbert matrix of order n.
+ Another example showing indexed text,
+  S = <'x = 3  '
+  'y = 4  '
+  'z = sqrt(x*x+y*y)'>
+  for k = 1:3, >S(k,:)<
+ It is necessary that the strings making up the "rows" of
+ the "matrix" S have the same lengths.
+
+MAGIC Magic square.  MAGIC(N) is an N by N matrix constructed
+ from the integers 1 through N**2 with equal row and column
+ sums.
+
+NORM  For matrices..
+ NORM(X)  is the largest singular value of  X.
+ NORM(X,1)  is the 1-norm of  X.
+ NORM(X,2)  is the same as NORM(X).
+ NORM(X,'INF')  is the infinity norm of  X.
+ NORM(X,'FRO')  is the F-norm, i.e.  SQRT(SUM(DIAG(X'*X))).
+ For vectors..
+ NORM(V,P) = (SUM(V(I)**P))**(1/P).
+ NORM(V) = NORM(V,2).
+ NORM(V,'INF') = MAX(ABS(V(I))).
+
+ONES  All ones.  ONES(N) is an N by N matrix of ones.  ONES(M,N)
+ is an M by N matrix of ones.  ONES(A) is the same size as
+ A and all ones.
+
+ORTH  Orthogonalization.   Q = ORTH(X)  is  a  matrix  with
+ orthonormal columns, i.e. Q'*Q = EYE, which span the same
+ space as the columns of X.
+
+PINV  Pseudoinverse.  X = PINV(A) produces a matrix  X  of the
+ same dimensions as A' so that A*X*A = A , X*A*X = X and
+ AX and XA are Hermitian.  The computation is based on
+ SVD(A) and any singular values less than a tolerance are
+ treated  as  zero.   The  default  tolerance  is
+ NORM(SIZE(A),'inf')*NORM(A)*EPS.  This tolerance may be
+ overridden with X = PINV(A,tol).  See RANK.
+
+PLOT  PLOT(X,Y) produces a plot of the elements of Y against
+ those of X. PLOT(Y) is the same as PLOT(1:n,Y) where n is
+ the number of  elements  in  Y .  PLOT(X,Y,P)  or
+ PLOT(X,Y,p1,...,pk) passes the optional parameter vector P
+ or scalars p1 through pk to the plot routine.  The default
+ plot routine is a crude printer-plot. It is hoped that an
+ interface to local graphics equipment can be provided.
+ An interesting example is
+  t = 0:50;
+  PLOT( t.*cos(t), t.*sin(t) )
+
+POLY  Characteristic polynomial.
+ If A is an N by N matrix, POLY(A) is a column vector with
+ N+1  elements  which  are  the  coefficients  of the
+ characteristic polynomial, DET(lambda*EYE - A).
+ If V is a vector, POLY(V) is a vector whose elements are
+ the coefficients of the polynomial whose roots are the
+ elements of V. For vectors, ROOTS and POLY are inverse
+ functions of each other, up to ordering, scaling, and
+ roundoff error.
+ ROOTS(POLY(1:20)) generates Wilkinson's famous example.
+
+PRINT PRINT('file',X) prints X on the file using the current
+ format determined by SHORT, LONG Z, etc.  See FILE.
+
+PROD  PROD(X) is the product of all the elements of X.
+
+QR    Orthogonal-triangular decomposition.
+ <Q,R> = QR(X)  produces an upper triangular matrix  R of
+ the same dimension as X and a unitary matrix Q so that
+ X = Q*R.
+ <Q,R,E> = QR(X) produces a permutation matrix  E , an
+ upper triangular R with decreasing diagonal elements and
+ a unitary Q so that X*E = Q*R.
+ By itself, QR(X) returns the output of CQRDC.  TRIU(QR(X))
+ is R.
+
+RAND  Random numbers and matrices.  RAND(N) is an N by N matrix
+ with random entries.  RAND(M,N) is an M by N matrix with
+ random entries.  RAND(A) is the same size as  A.  RAND
+ with no arguments is a scalar whose value changes each time
+ it is referenced.
+ Ordinarily, random numbers are uniformly distributed in
+ the interval (0.0,1.0).  RAND('NORMAL') switches to a
+ normal distribution with mean 0.0 and variance 1.0.
+ RAND('UNIFORM') switches back to the uniform distribution.
+ RAND('SEED') returns the current value of the seed for the
+ generator.   RAND('SEED',n)  sets  the  seed  to n.
+ RAND('SEED',0) resets the seed to 0, its value when MATLAB
+ is first entered.
+
+RANK  Rank.  K = RANK(X) is the number of singular values of  X
+ that are larger than NORM(SIZE(X),'inf')*NORM(X)*EPS.
+ K = RANK(X,tol) is the number of singular values of X that
+ are larger than tol.
+
+RCOND RCOND(X)  is an estimate for the reciprocal of  the
+ condition of  X  in the 1-norm obtained by the LINPACK
+ condition estimator.  If X is well conditioned, RCOND(X)
+ is near 1.0.  If X is badly conditioned, RCOND(X) is
+ near 0.0.
+ <R, Z> = RCOND(A) sets R to RCOND(A) and also produces a
+ vector Z so that
+  NORM(A*Z,1) = R*NORM(A,1)*NORM(Z,1)
+ So, if RCOND(A) is small, then Z is an approximate null
+ vector.
+
+RAT   An experimental function which attempts to remove the
+ roundoff  error from results that should be "simple"
+ rational numbers.
+ RAT(X) approximates each element of  X by a continued
+ fraction of the form
+
+ a/b = d1 + 1/(d2 + 1/(d3 + ... + 1/dk))
+
+ with k <= len, integer di and abs(di) <= max.  The default
+ values of the parameters are len = 5 and max = 100.
+ RAT(len,max) changes the default values.  Increasing either
+ len or max increases the number of possible fractions.
+ <A,B> = RAT(X) produces integer matrices A and B so that
+
+ A ./ B  =  RAT(X)
+
+ Some examples:
+
+  long
+  T = hilb(6), X = inv(T)
+  <A,B> = rat(X)
+  H = A ./ B, S = inv(H)
+
+  short e
+  d = 1:8,  e = ones(d),  A = abs(d'*e - e'*d)
+  X = inv(A)
+  rat(X)
+  display(ans)
+
+
+REAL  REAL(X) is the real part of X.
+
+RETURN  From the terminal, causes return to the operating system
+ or other program which invoked MATLAB.  From inside an
+ EXEC, causes return to the invoking EXEC, or to the
+ terminal.
+
+RREF  RREF(A) is the reduced row echelon form of the rectangular
+ matrix.  RREF(A,B) is the same as RREF(<A,B>).
+
+ROOTS Find polynomial roots.  ROOTS(C) computes the roots of the
+ polynomial whose coefficients are the elements of the
+ vector C.  If C has N+1 components, the polynomial is
+ C(1)*X**N + ... + C(N)*X + C(N+1).  See POLY.
+
+ROUND ROUND(X) rounds the elements of  X  to the  nearest
+ integers.
+
+SAVE  SAVE('file') stores all the current variables in a file.
+ SAVE('file',X) saves only X.  See FILE.
+ The variables may be retrieved later by LOAD('file') or by
+ your own program using the following code for each matrix.
+ The lines involving XIMAG may be eliminated if everything
+ is known to be real.
+
+  attach lunit to 'file'
+  REAL or DOUBLE PRECISION XREAL(MMAX,NMAX)
+  REAL or DOUBLE PRECISION XIMAG(MMAX,NMAX)
+  READ(lunit,101) ID,M,N,IMG
+  DO 10 J = 1, N
+     READ(lunit,102) (XREAL(I,J), I=1,M)
+     IF (IMG .NE. 0) READ(lunit,102) (XIMAG(I,J),I=1,M)
+    10 CONTINUE
+
+ The formats used are system dependent.  The  following  are
+ typical.   See  SUBROUTINE  SAVLOD  in  your  local
+ implementation of MATLAB.
+
+   101 FORMAT(4A1,3I4)
+   102 FORMAT(4Z18)
+   102 FORMAT(4O20)
+   102 FORMAT(4D25.18)
+
+SCHUR Schur decomposition.  <U,T> = SCHUR(X) produces an upper
+ triangular matrix  T , with the eigenvalues of X on the
+ diagonal, and a unitary matrix U so that X = U*T*U' and
+ U'*U = EYE.  By itself, SCHUR(X) returns T.
+
+SHORT See LONG.
+
+SEMI  Semicolons at the end of lines will cause, rather than
+ suppress, printing.  A second SEMI restores the initial
+ interpretation.
+
+SIN  SIN(X) is the sine of X.  See FUN.
+
+SIZE  If X is an M by N matrix, then SIZE(X) is <M, N>.
+ Can also be used with a multiple assignment,
+  <M, N> = SIZE(X).
+
+SQRT  SQRT(X) is the square root of X.  See FUN.  Complex
+ results are produced if  X  is not positive, or has
+ nonpositive eigenvalues.
+
+STOP  Use EXIT instead.
+
+SUM   SUM(X)  is the sum of all the elements  of  X .
+ SUM(DIAG(X)) is the trace of X.
+
+SVD   Singular value decomposition.  <U,S,V> = SVD(X) produces a
+ diagonal matrix S , of the same dimension as X and with
+ nonnegative diagonal elements in decreasing order, and
+ unitary matrices U and V so that X = U*S*V'.
+ By itself, SVD(X) returns a vector containing the singular
+ values.
+ <U,S,V>  =  SVD(X,0)  produces  the  "economy  size"
+ decomposition.  If X is m by n with m > n, then only the
+ first n columns of U are computed and S is n by n.
+
+TRIL  Lower triangle.  TRIL(X) is the lower triangular part of X.
+ TRIL(X,K) is the elements on and below the K-th diagonal of
+ X.  K = 0 is the main diagonal, K > 0 is above the main
+ diagonal and K < 0 is below the main diagonal.
+
+TRIU  Upper triangle.  TRIU(X) is the upper triangular part of X.
+ TRIU(X,K) is the elements on and above the K-th diagonal of
+ X.  K = 0 is the main diagonal, K > 0 is above the main
+ diagonal and K < 0 is below the main diagonal.
+
+USER  Allows personal Fortran subroutines to be linked into
+ MATLAB.  The subroutine should have the heading
+
+     SUBROUTINE USER(A,M,N,S,T)
+     REAL or DOUBLE PRECISION A(M,N),S,T
+
+ The MATLAB statement Y = USER(X,s,t) results in a call to
+ the subroutine with a copy of the matrix X stored in the
+ argument A , its column and row dimensions in M and N ,
+ and the scalar parameters s and t stored in S and T
+. If s and t are omitted, they are set to 0.0.  After
+ the return,  A is stored in Y. The dimensions M and
+ N may be reset within the subroutine.  The statement Y =
+ USER(K) results in a call with M = 1, N = 1 and A(1,1) =
+ FLOAT(K). After the subroutine has been written, it must
+ be compiled and linked to the MATLAB object code within the
+ local operating system.
+
+WHAT  Lists commands and functions currently available.
+
+WHILE Repeat statements an indefinite number of times.
+ WHILE expr rop expr, statement, ..., statement, END
+ where rop is =, <, >, <=, >=, or <> (not equal).  The END
+ at the end of a line may be omitted.  The comma before the
+ END may also be omitted.  The commas may be replaced by
+ semicolons  to  avoid  printing.   The statements are
+ repeatedly executed as long as the indicated comparison
+ between the real parts of the first components of the two
+ expressions is true.  Example (assume a matrix  A  is
+ already defined).
+ E = 0*A; F = E + EYE; N = 1;
+ WHILE NORM(E+F-E,1) > 0, E = E + F; F = A*F/N; N = N + 1;
+ E
+
+WHO   Lists current variables.
+
+WHY   Provides succinct answers to any questions.
+
+//
+

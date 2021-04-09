@@ -1,0 +1,47 @@
+ MATLAB
+
+ A program for the computational use of matricies.
+
+ Written:
+
+ Cleve Moler
+ Deparment of Computer Science
+ University of New Mexico
+ Albuquerque, NM  87131
+ 1980-1982
+ 
+ This distribution assembled by:
+ 
+ Jim Kweeder
+ Department of Chemical Engineering
+ Clarkson University
+ Potsdam, NY 13676
+ Internet:  kweeder@sun.soe.clarkson.edu
+ Bitnet:    kweeder%sun.soe.clarkson.edu@clutx
+ 
+ Disclaimer:  Clarkson University has no knowledge or reponsibility for
+ the distribution of this software.  Further, the distributor provides
+ the software "as is" with no expressed or implied warranty of any kind.
+ 
+ This distribution includes the following files:
+ 
+ MATLAB.EXE     The executable file
+ MATLAB.HLP     A simple on-line help system
+ MATLAB.DOC     Extensive documentation of program
+ README         The file you're reading now
+ 
+ The document file is provided.  However, I created it by formatting
+ a XyWrite file to disc; thus, the pagination is thrown off.  If
+ you would like the XyWrite source file, send a request via e-mail.
+ I strongly suggest that you do not print the entire document.  Only
+ the first thirty pages actually deal with using the program (upto
+ section 9).  The remaining 30-40 pages are the gorey details on
+ how the program was written and an appendix containing the help
+ file MATLAB.HLP.
+ 
+ The user interface of this program isn't elegant, but functional.
+ I've used it on many occasions without problem.  Hope you find
+ it useful.
+
+ JK
+

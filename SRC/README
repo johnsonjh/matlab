@@ -1,0 +1,29 @@
+ Source Code for MATLAB
+ A matrix computation System.
+
+ Written in FORTRAN by:
+
+ Cleve Moler
+ Department of Computer Science
+ University of New Mexico
+ Albuquerque, NM  87131
+
+ Source code distributed by:
+ 
+ Jim Kweeder
+ Department of Chemical Engineering
+ Clarkson University
+ Potsdam, NY  13676
+ Internet:  kweeder@sun.soe.clarkson.edu
+ Bitnet:    kweeder%sun.soe.clarkson.edu@clutx
+
+ Disclaimer:  Clarkson University has no knowledge or responsibility
+ for the distribution of this source code.  Further, the distributor
+ provides this source code "as is" without expressed or implied 
+ warranty of any kind.
+
+ Hopefully, all of the goodies necessary to build MATLAB is here.
+ Unfortunately, I can't attest to that since I've never had the
+ need to rebuild the system.
+
+ JK  May 3, 1989
